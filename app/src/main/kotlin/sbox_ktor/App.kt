@@ -1,12 +1,15 @@
 package sbox_ktor
 
-class App {
-    val greeting: String
-        get() {
-            return "Hello World!"
-        }
-}
+import io.ktor.application.*
+import io.ktor.http.*
+import io.ktor.response.*
+import io.ktor.routing.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
 
-fun main() {
-    println(App().greeting)
+fun main(args: Array<String>) {
+    embeddedServer(Netty, 8080) {
+                routing { get("/") { call.respondText("Hello, world!", ContentType.Text.Html) } }
+            }
+            .start(wait = true)
 }
